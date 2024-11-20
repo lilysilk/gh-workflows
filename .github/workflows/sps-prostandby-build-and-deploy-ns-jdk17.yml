@@ -56,8 +56,8 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/lilysilkstandby/${{ REPO_NAME }}:prostandby-${{ github.sha }}
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/lilysilkstandby/${{ REPO_NAME }}:latest
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/standby-${{ github.repository }}:prostandby-${{ github.sha }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/standby-${{ github.repository }}:latest
 
   deploy-to-gcp:
     name: Deploy to GKE
@@ -88,5 +88,5 @@ jobs:
         manifests: |
           ${{ github.workspace }}/manifests/manifests-prostandby.yaml
         images: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/lilysilkstandby/${{ REPO_NAME }}:prostandby-${{ github.sha }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/standby-${{ github.repository }}:prostandby-${{ github.sha }}
         namespace: ${{ inputs.namespace }}
