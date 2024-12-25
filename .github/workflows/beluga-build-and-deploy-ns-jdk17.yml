@@ -1,4 +1,4 @@
-name: Build & Deploy beta Seller to Azure
+name: Build & Deploy
 
 on:
   workflow_call:
@@ -21,10 +21,14 @@ on:
       namespace:
         required: true
         type: string
-      MANIFESTS:
+      ENV:
         required: false
         type: string
-        default: 'manifests/manifests.yaml'
+        default: 'dev'
+      # MANIFESTS:
+      #   required: false
+      #   type: string
+      #   default: 'manifests/manifests.yaml'
 
 jobs:
 
@@ -60,7 +64,7 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}:beta-${{ github.sha }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}:${{ inputs.ENV }}-${{ github.sha }}
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}:latest
 
   deploy-to-gcp:
@@ -90,7 +94,7 @@ jobs:
       uses: azure/k8s-deploy@v1
       with:
         manifests: |          
-          ${{ github.workspace }}/${{ inputs.MANIFESTS }}
+          ${{ github.workspace }}/manifests/manifests-${{ inputs.ENV }}.yaml
         images: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}:beta-${{ github.sha }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}:${{ inputs.ENV }}-${{ github.sha }}
         namespace: ${{ inputs.namespace }}
