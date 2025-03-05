@@ -80,6 +80,9 @@ jobs:
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ steps.timestamp.outputs.IMAGE_TAG }}
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:latest
 
+    outputs:
+      IMAGE_TAG: ${{ steps.timestamp.outputs.IMAGE_TAG }}
+
   deploy-to-gcp:
     name: Deploy to GKE
     runs-on: ubuntu-latest
