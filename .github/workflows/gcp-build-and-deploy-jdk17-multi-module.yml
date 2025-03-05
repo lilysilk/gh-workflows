@@ -58,7 +58,7 @@ jobs:
         TZ: Asia/Shanghai  # 中国时区‌:ml-citation{ref="4" data="citationList"}
       run: |
         echo "time=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT 
-        echo "TIME_TAG=${{ steps.timestamp.outputs.time }}" >> $GITHUB_TIME
+        echo "TIME_TAG=${{ steps.timestamp.outputs.time }}" >> $GITHUB_ENV
 
     - name: Run mvn clean install
       run: mvn -U -s mvn-settings.xml clean install -DskipTests -ntp ${{ inputs.MVN_ARGS }}
