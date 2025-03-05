@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="921564de-4975-4516-afb3-9a041aeadf7c" name="更改" comment="" />
+    <list default="true" id="921564de-4975-4516-afb3-9a041aeadf7c" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/gcp-build-and-deploy-jdk17-multi-module.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/gcp-build-and-deploy-jdk17-multi-module.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1741086582455</updated>
-      <workItem from="1741086584327" duration="4585000" />
+      <workItem from="1741086584327" duration="5713000" />
     </task>
     <servers />
   </component>
