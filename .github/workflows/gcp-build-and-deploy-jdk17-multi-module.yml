@@ -79,6 +79,8 @@ jobs:
         tags: |
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ steps.timestamp.outputs.timestamp }}
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:latest
+    outputs:
+      timestamp: ${{ steps.timestamp.outputs.timestamp }}
 
   deploy-to-gcp:
     name: Deploy to GKE
@@ -109,5 +111,5 @@ jobs:
         manifests: |
           ${{ github.workspace }}/${{ inputs.MODULE }}/manifests/manifests-${{ inputs.ENV }}.yaml
         images: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ steps.timestamp.outputs.timestamp }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ needs.build-push-gcr.outputs.timestamp }}
         namespace: ${{ inputs.NAMESPACE }}
