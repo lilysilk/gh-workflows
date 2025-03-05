@@ -57,8 +57,7 @@ jobs:
       env:
         TZ: Asia/Shanghai  # 中国时区‌:ml-citation{ref="4" data="citationList"}
       run: |
-        echo "time=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT 
-        echo "TIME_TAG=${{ steps.timestamp.outputs.time }}" >> $GITHUB_ENV
+        echo "::set-output name=timestamp::$(date +'%Y%m%d%H%M%S')"
 
     - name: Run mvn clean install
       run: mvn -U -s mvn-settings.xml clean install -DskipTests -ntp ${{ inputs.MVN_ARGS }}
@@ -78,7 +77,7 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ env.TIME_TAG }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ steps.timestamp.outputs.timestamp }}
           ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:latest
 
   deploy-to-gcp:
@@ -110,5 +109,5 @@ jobs:
         manifests: |
           ${{ github.workspace }}/${{ inputs.MODULE }}/manifests/manifests-${{ inputs.ENV }}.yaml
         images: |
-          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ env.TIME_TAG }}
+          ${{ inputs.GCR }}/${{ inputs.PROJECT_ID }}/${{ github.repository }}/${{ inputs.MODULE }}:${{ inputs.ENV }}-${{ github.sha }}-${{ steps.timestamp.outputs.timestamp }}
         namespace: ${{ inputs.NAMESPACE }}
