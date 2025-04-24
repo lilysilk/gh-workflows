@@ -53,7 +53,7 @@ jobs:
         distribution: "adopt"
 
     - name: download geo ip mmdb
-      run: wget -O ${{ inputs.MODULE }}/src/main/resources/GeoLite2-City.mmdb "https://img-stag.lilysilk.com/geoip/GeoLite2-City.mmdb?t=$(date +'%Y%m%d-%H%M')"
+      run: wget -O ${{ inputs.MODULE }}/src/main/resources/GeoLite2-City.mmdb "https://img.lilysilk.com/geoip/GeoLite2-City.mmdb?t=$(date +'%Y%m%d-%H%M')"
     
     - name: Run mvn clean install
       run: mvn -U -s mvn-settings.xml clean install -DskipTests -ntp ${{ inputs.MVN_ARGS }}
