@@ -37,6 +37,17 @@ jobs:
         java-version: "17"
         distribution: "adopt"
 
+    - name: Install Maven 3.9.9 override system maven
+      run: |
+        wget -q https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+        tar -xf apache-maven-3.9.9-bin.tar.gz
+        echo "$PWD/apache-maven-3.9.9/bin" >> $GITHUB_PATH
+
+    - name: Check Java & Maven Version
+      run: |
+        java -version
+        mvn -v
+
     - name: Run mvn clean install
       run: mvn -U -s mvn-settings.xml clean install -DskipTests -ntp
 
